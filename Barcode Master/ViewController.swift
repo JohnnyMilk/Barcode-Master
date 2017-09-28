@@ -9,77 +9,28 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ViewController: UIViewController, MLBarcodeReaderTextDelegate {
+    
     var captureSession: AVCaptureSession?
     var previewLayer: AVCaptureVideoPreviewLayer?
     var detectionView: UIView?
     
     @IBOutlet weak var messageLabel: UILabel!
     
+    var myBarcodeReader: MLBarcodeReader?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        captureSession = AVCaptureSession()
-        setCaptureSessionInput(captureSession: &captureSession!)
-        setCaptureSessionOutput(captureSession: &captureSession!)
-        setCaptureVideoPreviewLayer(captureSession: &captureSession!, previewView: &view!)
-        initialDetectionView()
-        refreshMessageLabel()
+        myBarcodeReader = MLBarcodeReader(previewView: &view)
+        view.bringSubview(toFront: messageLabel)
+        myBarcodeReader?.delegate = self
+        myBarcodeReader?.startRunning()
     }
 
-    func setCaptureVideoPreviewLayer(captureSession: inout AVCaptureSession, previewView: inout UIView) {
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        previewLayer?.frame = previewView.layer.bounds
-        previewView.layer.addSublayer(previewLayer!)
-        captureSession.startRunning()
-    }
-    
-    func setCaptureSessionInput(captureSession: inout AVCaptureSession) {
-        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice!)
-            captureSession.addInput(input)
-        } catch let error as NSError {
-            print("\(error.localizedDescription)")
-        }
-    }
-    
-    func setCaptureSessionOutput(captureSession: inout AVCaptureSession) {
-        let captureMetadataOutput = AVCaptureMetadataOutput()
-        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        captureSession.addOutput(captureMetadataOutput)
-        captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.aztec, AVMetadataObject.ObjectType.code128, AVMetadataObject.ObjectType.code39, AVMetadataObject.ObjectType.code39Mod43, AVMetadataObject.ObjectType.code93, AVMetadataObject.ObjectType.dataMatrix, AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.ean8, AVMetadataObject.ObjectType.interleaved2of5, AVMetadataObject.ObjectType.itf14, AVMetadataObject.ObjectType.pdf417, AVMetadataObject.ObjectType.qr]
-    }
-    
-    func initialDetectionView() {
-        detectionView = UIView(frame: CGRect.zero)
-        detectionView?.layer.borderColor = UIColor.orange.cgColor
-        detectionView?.layer.borderWidth = 3
-        view.addSubview(detectionView!)
-        view.bringSubview(toFront: detectionView!)
-    }
-    
-    func refreshDetectionView() {
-        detectionView?.frame = CGRect.zero
-    }
-    
-    func refreshMessageLabel() {
-        messageLabel.text = "---------------"
+    func metadataResult(captured: Bool, value: String?) {
+        messageLabel.text = captured ? value : "---------------"
         view.bringSubview(toFront: messageLabel)
-    }
-    
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if metadataObjects.count != 0 {
-            let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-            let barCodeObject = previewLayer?.transformedMetadataObject(for: metadataObj ) as! AVMetadataMachineReadableCodeObject
-            detectionView?.frame = barCodeObject.bounds;
-            
-            messageLabel.text = metadataObj.stringValue
-        } else {
-            refreshDetectionView()
-            refreshMessageLabel()
-        }
     }
     
     override func didReceiveMemoryWarning() {

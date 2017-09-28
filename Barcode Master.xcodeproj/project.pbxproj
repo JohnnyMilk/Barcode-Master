@@ -13,6 +13,7 @@
 		B2174A811F74C25600812E5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2174A801F74C25600812E5D /* Assets.xcassets */; };
 		B2174A841F74C25600812E5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2174A821F74C25600812E5D /* LaunchScreen.storyboard */; };
 		B2174A8D1F74C26E00812E5D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2174A8C1F74C26E00812E5D /* AVFoundation.framework */; };
+		B23F6C3E1F7CE6A400CE96D5 /* MLBarcodeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23F6C3D1F7CE6A400CE96D5 /* MLBarcodeReader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B2174A831F74C25600812E5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B2174A851F74C25600812E5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2174A8C1F74C26E00812E5D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B23F6C3D1F7CE6A400CE96D5 /* MLBarcodeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLBarcodeReader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		B2174A781F74C25600812E5D /* Barcode Master */ = {
 			isa = PBXGroup;
 			children = (
+				B23F6C3D1F7CE6A400CE96D5 /* MLBarcodeReader.swift */,
 				B2174A791F74C25600812E5D /* AppDelegate.swift */,
 				B2174A7B1F74C25600812E5D /* ViewController.swift */,
 				B2174A7D1F74C25600812E5D /* Main.storyboard */,
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2174A7C1F74C25600812E5D /* ViewController.swift in Sources */,
+				B23F6C3E1F7CE6A400CE96D5 /* MLBarcodeReader.swift in Sources */,
 				B2174A7A1F74C25600812E5D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
