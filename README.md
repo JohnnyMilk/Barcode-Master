@@ -15,7 +15,7 @@ myBarcodeReader?.startRunning()
 ```
 ### Capture Text
 If you want to capture the text from the barcode, add the protocol `MLBarcodeReaderTextDelegate`.
-And implement `func metadataResult(captured: Bool, value: String?)` function.
+And implement this function `func metadataResult(captured: Bool, value: String?)`.
 
 
 ### Stop Running
