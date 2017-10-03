@@ -19,7 +19,9 @@ And implement this function `func metadataResult(captured: Bool, value: String?)
 
 
 ### Stop Running
-`myBarcodeReader?.stotRunning()`
+```
+myBarcodeReader?.stotRunning()
+```
 
 # Don't Forget
 - Add the AVFoundation.framework in the project.
