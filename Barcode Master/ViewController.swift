@@ -9,12 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, MLBarcodeReaderTextDelegate {
-    
-    var captureSession: AVCaptureSession?
-    var previewLayer: AVCaptureVideoPreviewLayer?
-    var detectionView: UIView?
-    
+class ViewController: UIViewController, MLBarcodeReaderTextDelegate {    
     @IBOutlet weak var messageLabel: UILabel!
     
     var myBarcodeReader: MLBarcodeReader?
