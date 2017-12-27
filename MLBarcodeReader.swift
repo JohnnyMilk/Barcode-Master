@@ -10,13 +10,12 @@ import UIKit
 import AVFoundation
 
 protocol MLBarcodeReaderTextDelegate {
-    func metadataResult(captured: Bool, value: String?)
+    func metadataResult(captured: Bool, value: String?, bound: CGRect)
 }
 
 class MLBarcodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
     private var captureSession: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
-    private var detectedView: UIView?
     var delegate: MLBarcodeReaderTextDelegate?
     
     init(previewView: inout UIView!) {
@@ -26,7 +25,6 @@ class MLBarcodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         setCaptureSessionInput(captureSession: &captureSession!)
         setCaptureSessionOutput(captureSession: &captureSession!)
         setCaptureVideoPreviewLayer(captureSession: &captureSession!, previewView: &previewView!)
-        initDetectionView(previewView: &previewView!)
     }
     
     func startRunning() {
@@ -54,14 +52,6 @@ class MLBarcodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.aztec, AVMetadataObject.ObjectType.code128, AVMetadataObject.ObjectType.code39, AVMetadataObject.ObjectType.code39Mod43, AVMetadataObject.ObjectType.code93, AVMetadataObject.ObjectType.dataMatrix, AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.ean8, AVMetadataObject.ObjectType.interleaved2of5, AVMetadataObject.ObjectType.itf14, AVMetadataObject.ObjectType.pdf417, AVMetadataObject.ObjectType.qr]
     }
     
-    private func initDetectionView(previewView: inout UIView) {
-        detectedView = UIView(frame: CGRect.zero)
-        detectedView?.layer.borderColor = UIColor.orange.cgColor
-        detectedView?.layer.borderWidth = 3
-        previewView.addSubview(detectedView!)
-        previewView.bringSubview(toFront: detectedView!)
-    }
-    
     private func setCaptureVideoPreviewLayer(captureSession: inout AVCaptureSession, previewView: inout UIView) {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -73,12 +63,9 @@ class MLBarcodeReader: NSObject, AVCaptureMetadataOutputObjectsDelegate {
         if metadataObjects.count != 0 {
             let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
             let barCodeObject = previewLayer?.transformedMetadataObject(for: metadataObj ) as! AVMetadataMachineReadableCodeObject
-            detectedView?.frame = barCodeObject.bounds;
-            delegate?.metadataResult(captured: true, value: metadataObj.stringValue)
+            delegate?.metadataResult(captured: true, value: metadataObj.stringValue, bound: barCodeObject.bounds)
         } else {
-            detectedView?.frame = CGRect.zero
-            
-            delegate?.metadataResult(captured: false, value: nil)
+            delegate?.metadataResult(captured: false, value: nil, bound: CGRect.zero)
         }
     }
 }

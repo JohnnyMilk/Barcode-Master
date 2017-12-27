@@ -43,6 +43,7 @@
 		B2174A6D1F74C25600812E5D = {
 			isa = PBXGroup;
 			children = (
+				B23F6C3D1F7CE6A400CE96D5 /* MLBarcodeReader.swift */,
 				B2174A781F74C25600812E5D /* Barcode Master */,
 				B2174A771F74C25600812E5D /* Products */,
 				B2174A8B1F74C26E00812E5D /* Frameworks */,
@@ -60,7 +61,6 @@
 		B2174A781F74C25600812E5D /* Barcode Master */ = {
 			isa = PBXGroup;
 			children = (
-				B23F6C3D1F7CE6A400CE96D5 /* MLBarcodeReader.swift */,
 				B2174A791F74C25600812E5D /* AppDelegate.swift */,
 				B2174A7B1F74C25600812E5D /* ViewController.swift */,
 				B2174A7D1F74C25600812E5D /* Main.storyboard */,
