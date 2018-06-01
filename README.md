@@ -1,6 +1,7 @@
 # Barcode-Master
 A generic reader for Barcode and QR Code metadata. (Swift 4, iOS 11, Xcode 9)
 
+[Related Website][Reference]
 
 # Result
 ![image][result]
@@ -30,3 +31,4 @@ myBarcodeReader?.stotRunning()
 
 
 [result]:https://github.com/JohnnyMilk/Barcode-Master/blob/master/result.jpg
+[Reference]:https://medium.com/the-furnace/%E8%A3%BD%E4%BD%9C%E8%88%87%E8%BE%A8%E8%AD%98-qr-code-%E5%92%8C-barcode-%E7%9A%84%E6%96%B9%E6%B3%95-ea93bccea10a
